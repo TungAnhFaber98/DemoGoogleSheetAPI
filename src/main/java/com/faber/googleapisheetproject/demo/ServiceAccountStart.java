@@ -1,4 +1,4 @@
-package com.faber.googleapisheetproject;
+package com.faber.googleapisheetproject.demo;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
@@ -37,40 +37,40 @@ public class ServiceAccountStart {
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final String SERVICE_ACCOUNT_EMAIL = "demoapi@cohesive-vine-271302.iam.gserviceaccount.com";
 
-    public static void main(String[] args) throws GeneralSecurityException, IOException {
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        final String spreadsheetId = "1K6ScAs5N-EPzbJZqgGaXdk9fD5H3eF4ELwREPblJu54";
-
-        Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpCredentialsAdapter(getCredentials()))
-                .setApplicationName("Tung Anh")
-                .build();
-        final String range = "Sheet1!A2:C19";
-//        Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredential(SERVICE_ACCOUNT_EMAIL))
+//    public static void main(String[] args) throws GeneralSecurityException, IOException {
+//        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+//        final String spreadsheetId = "1K6ScAs5N-EPzbJZqgGaXdk9fD5H3eF4ELwREPblJu54";
+//
+//        Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpCredentialsAdapter(getCredentialsJson()))
 //                .setApplicationName("Tung Anh")
 //                .build();
-        ValueRange response = service.spreadsheets().values()
-                .get(spreadsheetId, range)
-                .execute();
-        List<List<Object>> values = response.getValues();
-        if (values == null || values.isEmpty()) {
-            System.out.println("No data found.");
-        } else {
-            System.out.println("Id, Name, Test");
-            for (List row : values) {
-                // Print columns A and E, which correspond to indices 0 and 4.
-                System.out.printf("%s, %s, %s\n", row.get(0), row.get(1), row.get(2));
-            }
-        }
-
-    }
-    /*
-     * for GoogleCredential deprecated
-     * @param userEmail
-     * @return
-     * @throws GeneralSecurityException
-     * @throws IOException 
-     * 
-     */
+//        final String range = "Sheet1!A2:C19";
+////        Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredential(SERVICE_ACCOUNT_EMAIL))
+////                .setApplicationName("Tung Anh")
+////                .build();
+//        ValueRange response = service.spreadsheets().values()
+//                .get(spreadsheetId, range)
+//                .execute();
+//        List<List<Object>> values = response.getValues();
+//        if (values == null || values.isEmpty()) {
+//            System.out.println("No data found.");
+//        } else {
+//            System.out.println("Id, Name, Test");
+//            for (List row : values) {
+//                // Print columns A and E, which correspond to indices 0 and 4.
+//                System.out.printf("%s, %s, %s\n", row.get(0), row.get(1), row.get(2));
+//            }
+//        }
+//
+//    }
+//    /*
+//     * for GoogleCredential deprecated
+//     * @param userEmail
+//     * @return
+//     * @throws GeneralSecurityException
+//     * @throws IOException 
+//     * 
+//     */
     public static GoogleCredential getCredential(String userEmail) throws GeneralSecurityException, IOException {
         HttpTransport httpTransport = new NetHttpTransport();
         JacksonFactory jsonFactory = new JacksonFactory();
@@ -90,7 +90,15 @@ public class ServiceAccountStart {
      * @throws GeneralSecurityException
      * @throws IOException 
      */
-    public static GoogleCredentials getCredentials() throws GeneralSecurityException, IOException {
+    public static GoogleCredentials getCredentialsJson() throws GeneralSecurityException, IOException {
+        FileInputStream credentialsStream = new FileInputStream("D:\\Code hub\\GoogleAPISheetProject\\src\\main\\resources\\demo.json");
+        GoogleCredentials credentials = ServiceAccountCredentials.fromStream(credentialsStream);
+        credentials = credentials.createScoped(Arrays.asList(SheetsScopes.SPREADSHEETS));
+        AccessToken accessToken = credentials.refreshAccessToken();
+        return credentials;
+    }
+    
+    public static GoogleCredentials getCredentialsP12() throws GeneralSecurityException, IOException {
         FileInputStream credentialsStream = new FileInputStream("D:\\Code hub\\GoogleAPISheetProject\\src\\main\\resources\\demo.json");
         GoogleCredentials credentials = ServiceAccountCredentials.fromStream(credentialsStream);
         credentials = credentials.createScoped(Arrays.asList(SheetsScopes.SPREADSHEETS));

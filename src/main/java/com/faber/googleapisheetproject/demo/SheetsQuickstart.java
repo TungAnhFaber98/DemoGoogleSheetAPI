@@ -1,4 +1,4 @@
-package com.faber.googleapisheetproject;
+package com.faber.googleapisheetproject.demo;
 
 //<editor-fold defaultstate="collapsed" desc="IMPORT">
 import com.google.api.client.auth.oauth2.Credential;
@@ -85,65 +85,65 @@ public class SheetsQuickstart {
      * @throws java.io.IOException
      * @throws java.security.GeneralSecurityException
      */
-    public static void main(String... args) throws IOException, GeneralSecurityException {
-
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        final String spreadsheetId = "1K6ScAs5N-EPzbJZqgGaXdk9fD5H3eF4ELwREPblJu54";
-
-        Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-
-        //<editor-fold defaultstate="collapsed" desc="Append new line to sheet">
-                String range = "Sheet1!A2:C13";
-        
-        ValueRange response = service.spreadsheets().values()
-                .get(spreadsheetId, range)
-                .execute();
-        
-        List<List<Object>> values = response.getValues();
-        if(values==null|| values.isEmpty()){
-            System.out.println("No data found.");
-        }
-        else{
-            for(List row:values){
-                System.out.printf("Id: %s,Name: %s,Email: %s\n",row.get(0),row.get(1),row.get(2));
-            }
-        }
-        
-        ValueRange appendbody = new ValueRange()
-                .setValues(Arrays.asList(Arrays.asList(13,"Tung","gae23@gmail.com")));
-        
-        AppendValuesResponse result = service.spreadsheets().values()
-                .append(spreadsheetId, "Sheet1", appendbody)
-                .setValueInputOption("USER_ENTERED")
-                .setInsertDataOption("INSERT_ROWS")
-                .setIncludeValuesInResponse(true)
-                .execute();
-        //</editor-fold>
-        //<editor-fold defaultstate="collapsed" desc="Add new sheet to spreadsheet">
-//        AddSheetRequest addSheetRequest = new AddSheetRequest();
-//        addSheetRequest.setProperties(new SheetProperties().setTitle("Thuan Tran 1"));
-//        BatchUpdateSpreadsheetRequest batchUpdateSpreadsheetRequest = new BatchUpdateSpreadsheetRequest();
-//        batchUpdateSpreadsheetRequest.setRequests(new ArrayList<>());
-//        batchUpdateSpreadsheetRequest.getRequests().add(new Request().setAddSheet(addSheetRequest));
+//    public static void main(String... args) throws IOException, GeneralSecurityException {
 //
-//        Sheets.Spreadsheets.BatchUpdate batchUpdateRequest = service.spreadsheets().batchUpdate(spreadsheetId, batchUpdateSpreadsheetRequest);
-//        batchUpdateRequest.execute();
-        //</editor-fold>
-        //<editor-fold defaultstate="collapsed" desc="UPDATE Sheet">
-//        DeleteDimensionRequest deleteRequest = new DeleteDimensionRequest()
-//                .setRange(
-//                        new DimensionRange()
-//                                .setSheetId(1156541392)
-//                                .setDimension("ROWS")
-//                                .setStartIndex(6)
-//                );
-//        List<Request> requests = new ArrayList<>();
-//        requests.add(new Request().setDeleteDimension(deleteRequest));
-//        BatchUpdateSpreadsheetRequest body = new BatchUpdateSpreadsheetRequest().setRequests(requests);
-//        service.spreadsheets().batchUpdate(spreadsheetId, body).execute();
-        //</editor-fold>
-    }
+//        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+//        final String spreadsheetId = "1K6ScAs5N-EPzbJZqgGaXdk9fD5H3eF4ELwREPblJu54";
+//
+//        Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+//                .setApplicationName(APPLICATION_NAME)
+//                .build();
+//
+//        //<editor-fold defaultstate="collapsed" desc="Append new line to sheet">
+//                String range = "Sheet1!A2:C13";
+//        
+//        ValueRange response = service.spreadsheets().values()
+//                .get(spreadsheetId, range)
+//                .execute();
+//        
+//        List<List<Object>> values = response.getValues();
+//        if(values==null|| values.isEmpty()){
+//            System.out.println("No data found.");
+//        }
+//        else{
+//            for(List row:values){
+//                System.out.printf("Id: %s,Name: %s,Email: %s\n",row.get(0),row.get(1),row.get(2));
+//            }
+//        }
+//        
+//        ValueRange appendbody = new ValueRange()
+//                .setValues(Arrays.asList(Arrays.asList(13,"Tung","gae23@gmail.com")));
+//        
+//        AppendValuesResponse result = service.spreadsheets().values()
+//                .append(spreadsheetId, "Sheet1", appendbody)
+//                .setValueInputOption("USER_ENTERED")
+//                .setInsertDataOption("INSERT_ROWS")
+//                .setIncludeValuesInResponse(true)
+//                .execute();
+//        //</editor-fold>
+//        //<editor-fold defaultstate="collapsed" desc="Add new sheet to spreadsheet">
+////        AddSheetRequest addSheetRequest = new AddSheetRequest();
+////        addSheetRequest.setProperties(new SheetProperties().setTitle("Thuan Tran 1"));
+////        BatchUpdateSpreadsheetRequest batchUpdateSpreadsheetRequest = new BatchUpdateSpreadsheetRequest();
+////        batchUpdateSpreadsheetRequest.setRequests(new ArrayList<>());
+////        batchUpdateSpreadsheetRequest.getRequests().add(new Request().setAddSheet(addSheetRequest));
+////
+////        Sheets.Spreadsheets.BatchUpdate batchUpdateRequest = service.spreadsheets().batchUpdate(spreadsheetId, batchUpdateSpreadsheetRequest);
+////        batchUpdateRequest.execute();
+//        //</editor-fold>
+//        //<editor-fold defaultstate="collapsed" desc="UPDATE Sheet">
+////        DeleteDimensionRequest deleteRequest = new DeleteDimensionRequest()
+////                .setRange(
+////                        new DimensionRange()
+////                                .setSheetId(1156541392)
+////                                .setDimension("ROWS")
+////                                .setStartIndex(6)
+////                );
+////        List<Request> requests = new ArrayList<>();
+////        requests.add(new Request().setDeleteDimension(deleteRequest));
+////        BatchUpdateSpreadsheetRequest body = new BatchUpdateSpreadsheetRequest().setRequests(requests);
+////        service.spreadsheets().batchUpdate(spreadsheetId, body).execute();
+//        //</editor-fold>
+//    }
 
 }
