@@ -10,15 +10,27 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
+import com.google.api.services.sheets.v4.model.AddSheetRequest;
 import com.google.api.services.sheets.v4.model.AppendValuesResponse;
 import com.google.api.services.sheets.v4.model.BatchUpdateSpreadsheetRequest;
 import com.google.api.services.sheets.v4.model.BatchUpdateSpreadsheetResponse;
+import com.google.api.services.sheets.v4.model.Border;
+import com.google.api.services.sheets.v4.model.Color;
+import com.google.api.services.sheets.v4.model.CutPasteRequest;
 import com.google.api.services.sheets.v4.model.DeleteDimensionRequest;
+import com.google.api.services.sheets.v4.model.DeleteNamedRangeRequest;
+import com.google.api.services.sheets.v4.model.DeleteSheetRequest;
+import com.google.api.services.sheets.v4.model.DimensionProperties;
 import com.google.api.services.sheets.v4.model.DimensionRange;
+import com.google.api.services.sheets.v4.model.DuplicateSheetRequest;
+import com.google.api.services.sheets.v4.model.GridCoordinate;
+import com.google.api.services.sheets.v4.model.GridRange;
 import com.google.api.services.sheets.v4.model.Request;
 import com.google.api.services.sheets.v4.model.SheetProperties;
 import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.SpreadsheetProperties;
+import com.google.api.services.sheets.v4.model.UpdateBordersRequest;
+import com.google.api.services.sheets.v4.model.UpdateDimensionPropertiesRequest;
 import com.google.api.services.sheets.v4.model.UpdateSheetPropertiesRequest;
 import com.google.api.services.sheets.v4.model.UpdateSpreadsheetPropertiesRequest;
 import com.google.api.services.sheets.v4.model.UpdateValuesResponse;
@@ -295,22 +307,52 @@ public class AirportServiceImpl implements AirportService {
             Sheets service = getSheetService();
             List<Request> requests = new ArrayList<>();
 
-            UpdateSpreadsheetPropertiesRequest updateSpreadsheetPropertiesRequest = new UpdateSpreadsheetPropertiesRequest()
-                    .setProperties(new SpreadsheetProperties().setTitle("Tung Teng Anh"))
-                    .setFields("*");
-            requests.add(new Request().setUpdateSpreadsheetProperties(updateSpreadsheetPropertiesRequest));
+//            UpdateSpreadsheetPropertiesRequest updateSpreadsheetPropertiesRequest = new UpdateSpreadsheetPropertiesRequest()
+//                    .setProperties(new SpreadsheetProperties().setTitle("Tung Teng Anh"))
+//                    .setFields("*");
+//            requests.add(new Request().setUpdateSpreadsheetProperties(updateSpreadsheetPropertiesRequest));
+//            UpdateSheetPropertiesRequest updateSheetPropertiesRequest = new UpdateSheetPropertiesRequest()
+//                    .setProperties(new SheetProperties().setSheetId(349813882).setTitle("Demo Batch Blablo"))
+//                    .setFields("title"); // this is GODDDDD
+//            requests.add(new Request().setUpdateSheetProperties(updateSheetPropertiesRequest));
+//            UpdateDimensionPropertiesRequest updateDimensionPropertiesRequest = new UpdateDimensionPropertiesRequest()
+//                    .setRange(new DimensionRange().setSheetId(349813882).setDimension("COLUMNS").setStartIndex(2).setEndIndex(5))
+//                    .setProperties(new DimensionProperties().setPixelSize(150))
+//                    .setFields("*");
+//            requests.add(new Request().setUpdateDimensionProperties(updateDimensionPropertiesRequest));
+//            AddSheetRequest addSheetRequest = new AddSheetRequest().setProperties(new SheetProperties().setTitle("Tiki"));
+//            requests.add(new Request().setAddSheet(addSheetRequest));
+//            DeleteSheetRequest deleteSheetRequest = new DeleteSheetRequest().setSheetId(805459622);
+//            requests.add(new Request().setDeleteSheet(deleteSheetRequest));
+//            CutPasteRequest cutPasteRequest = new CutPasteRequest()
+//                    .setSource(new GridRange().setSheetId(349813882).setStartRowIndex(2).setEndRowIndex(6).setStartColumnIndex(1).setEndColumnIndex(3))
+//                    .setDestination(new GridCoordinate().setSheetId(349813882).setRowIndex(6).setColumnIndex(5))
+//                    .setPasteType("PASTE_NORMAL");
+//            requests.add(new Request().setCutPaste(cutPasteRequest));
+//            UpdateBordersRequest updateBordersRequest = new UpdateBordersRequest()
+//                    .setRange(new GridRange().setSheetId(349813882).setStartRowIndex(2).setEndRowIndex(6).setStartColumnIndex(1).setEndColumnIndex(3))
+//                    .setInnerHorizontal(new Border().setStyle("SOLID_THICK"));
+//            requests.add(new Request().setUpdateBorders(updateBordersRequest));
+
+//            DuplicateSheetRequest duplicateSheetRequest = new DuplicateSheetRequest()
+//                    .setSourceSheetId(349813882)
+//                    .setInsertSheetIndex(6)
+//                    .setNewSheetId(111111111)
+//                    .setNewSheetName("duplicates");
+//            requests.add(new Request().setDuplicateSheet(duplicateSheetRequest));
             
-            UpdateSheetPropertiesRequest updateSheetPropertiesRequest = new UpdateSheetPropertiesRequest()
-                    .setProperties(new SheetProperties().setSheetId(349813882).setTitle("Demo Batch Update"))
-                    .setFields("*");
-            requests.add(new Request().setUpdateSheetProperties(updateSheetPropertiesRequest));
+//            BatchUpdateSpreadsheetRequest requestBody = new BatchUpdateSpreadsheetRequest();
+//            requestBody.setRequests(requests);
+//
+//            Sheets.Spreadsheets.BatchUpdate request = service.spreadsheets().batchUpdate(spreadsheetId, requestBody);
+//            BatchUpdateSpreadsheetResponse response = request.execute();
+//            LOGGER.info(response.toPrettyString());
 
-            BatchUpdateSpreadsheetRequest requestBody = new BatchUpdateSpreadsheetRequest();
-            requestBody.setRequests(requests);
-
-            Sheets.Spreadsheets.BatchUpdate request = service.spreadsheets().batchUpdate(spreadsheetId, requestBody);
-            BatchUpdateSpreadsheetResponse response = request.execute();
-            LOGGER.info(response.toPrettyString());
+                Spreadsheet requestBody = new Spreadsheet();
+                Sheets.Spreadsheets.Create request = service.spreadsheets().create(requestBody);
+                
+                Spreadsheet response = request.execute();
+                LOGGER.info(response.toPrettyString());
         } catch (IOException | GeneralSecurityException ex) {
             LOGGER.error(ex.getMessage());
         }
