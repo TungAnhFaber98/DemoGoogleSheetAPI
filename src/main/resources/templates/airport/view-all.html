@@ -25,7 +25,7 @@ and open the template in the editor.
                     <div class="card-body">
                         <div th:switch="${airportList}" class="container my-5">
                             <p class="my-5">
-                                <a href="/add-airport" class="btn btn-info">
+                                <a href="/edit-airport" class="btn btn-info">
                                     <i class="fas fa-map-marker-alt ml-2"> Add Airport </i></a>
                             </p>
                             <div class="col-md-10" >
@@ -49,13 +49,13 @@ and open the template in the editor.
                                                     <td th:text="${airport.name}"></td>
                                                     <td th:text="${airport.location}"></td>
                                                     <td>
-                                                        <a th:href="@{/admin/airport/edit/{id}(id=${airport.id})}"
+                                                        <a th:href="@{/edit-airport/{id}(id=${airport.id})}"
                                                            class="btn btn-primary">
                                                             <i class="fas fa-edit ml-2"></i>
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a th:href="@{/admin/airport/delete/{id}(id=${airport.id})}"
+                                                        <a th:href="@{/delete-airport/{id}(id=${airport.id})}"
                                                            class="btn btn-danger delete-button">
                                                             <i class="fas fa-trash-alt ml-2"></i>
                                                         </a>

@@ -16,19 +16,13 @@ and open the template in the editor.
     <body>
         <div layout:fragment="content">
             <div class="container my-5">
-                <h3 th:text="'Add Airport'"></h3>
+                <h3 th:text="'Add/Update Airport'"></h3>
                 <div class="card">
                     <div class="card-body">
                         <div class="col-md-10">
-                            <form action="#" th:action="@{/add-airport}" th:object="${airport}"
+                            <form action="#" th:action="@{/edit-airport}" th:object="${airport}"
                                   method="post">
                                 <div class="row">
-                                    
-                                    <div class="form-group col-md-8">
-                                        <label for="id" class="col-form-label">Id</label> 
-                                        <input type="text" th:field="*{id}" class="form-control"
-                                               id="name" placeholder="Id" />
-                                    </div>
                                     <div class="form-group col-md-8">
                                         <label for="name" class="col-form-label">Name</label> 
                                         <input type="text" th:field="*{name}" class="form-control"
@@ -44,7 +38,7 @@ and open the template in the editor.
                                     <div class="col-md-6">
                                         <input type="submit" class="btn btn-primary" value=" Submit ">
                                     </div>
-
+                                    <input type="hidden" id="id" th:field="*{id}">
 
                                 </div>
                             </form>
